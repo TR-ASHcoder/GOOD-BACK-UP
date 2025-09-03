@@ -84,6 +84,18 @@ hr {
     padding-bottom: 2vh; 
 }
 
+.collapsiblea {
+    font-size: small;
+    display: block; 
+    color: rgb(88, 88, 88);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    background-color: inherit;
+    cursor: pointer;
+    border: none;
+}
+
+
 .content {
     padding-left: 2vh;
     padding-bottom: 2vh;
