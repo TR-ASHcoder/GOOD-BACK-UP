@@ -13,3 +13,8 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 
+(function newFact() {
+  var facts = ['Ver . 2.34... technically', 'MEOWWWWWWW', 'UhhhhH','VISIT THE MAIN SITE','DONT SNITCH','THANK YOU @KTEHLLAMA','PLS USE THE SUGGEST FORM','YARRRRR','CATS <3','i still remember 15/2/24','all my homies use Good Threads','added new sites to....'];
+  var randomFact = Math.floor(Math.random() * facts.length);
+  document.getElementById('announcementrand').innerHTML = facts[randomFact];
+})();
