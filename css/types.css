@@ -1,0 +1,26 @@
+/* UNUSED FONT FACE */
+/* @font-face {
+    font-family: funny;
+    src: url(fonts/FancyDelight-3z1r6.ttf);
+} */
+
+body {
+    background-color: rgb(15, 15, 15);
+}
+
+h1,h2 {
+    color: azure;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+}
+
+a {
+    color:rgb(121, 121, 121);
+    font-size: small;
+    font-family:sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+h3,p {
+    color: azure;
+    font-family: monospace;
+}
