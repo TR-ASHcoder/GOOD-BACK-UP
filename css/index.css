@@ -94,6 +94,13 @@ hr {
     cursor: pointer;
     border: none;
 }
+gloss{
+    color: rgb(196, 143, 0);
+    font-family:monospace;
+    font-size: large;
+    font-style: italic;
+    font-weight:bolder;
+}
 
 .biggerp{
     color: azure;
