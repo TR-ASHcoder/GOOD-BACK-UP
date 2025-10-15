@@ -14,7 +14,7 @@ hr {
     text-shadow: 2px 2px rgb(121, 89, 2);
     position: absolute;
     top: 4vh;  
-    left: 50%; 
+    left: 88%; 
     transform: translateX(-50%);
     transform-origin: center;
     animation: textAnim 3s infinite alternate ease-in-out;
@@ -47,7 +47,6 @@ hr {
     max-height: 45vh;
     border-radius: 1rem;
     padding-bottom: 8vh;
-    object-fit: cover;
 }
 
 .good {
