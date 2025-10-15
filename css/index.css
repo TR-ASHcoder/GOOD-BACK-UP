@@ -5,8 +5,7 @@ hr {
 @font-face {
     font-family: announcement;
     src: url(/Fonts/Minecraftia-Regular.ttf);
-  }
-
+}
 
 .announcement {
     font-family: announcement;
@@ -15,25 +14,27 @@ hr {
     text-shadow: 2px 2px rgb(121, 89, 2);
     position: absolute;
     top: 4vh;  
-    left: 175vh; 
+    left: 50%; 
+    transform: translateX(-50%);
     transform-origin: center;
     animation: textAnim 3s infinite alternate ease-in-out;
+    white-space: nowrap;
+    z-index: 10;
 }
 
 @keyframes textAnim {
-    0%   { transform: scale(1)    rotate(0deg); }
-    10%  { transform: scale(1.02) rotate(-3deg); }
-    20%  { transform: scale(1.04) rotate(5deg); }
-    30%  { transform: scale(1.06) rotate(-2deg); }
-    40%  { transform: scale(1.08) rotate(3deg); }
-    50%  { transform: scale(1.1)  rotate(-2deg); }
-    60%  { transform: scale(1.08) rotate(3deg); }
-    70%  { transform: scale(1.06) rotate(-2deg); }
-    80%  { transform: scale(1.04) rotate(5deg); }
-    90%  { transform: scale(1.02) rotate(-3deg); }
-    100% { transform: scale(1)    rotate(0deg); }
+    0%   { transform: translateX(-50%) scale(1)    rotate(0deg); }
+    10%  { transform: translateX(-50%) scale(1.02) rotate(-3deg); }
+    20%  { transform: translateX(-50%) scale(1.04) rotate(5deg); }
+    30%  { transform: translateX(-50%) scale(1.06) rotate(-2deg); }
+    40%  { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+    50%  { transform: translateX(-50%) scale(1.1)  rotate(-2deg); }
+    60%  { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+    70%  { transform: translateX(-50%) scale(1.06) rotate(-2deg); }
+    80%  { transform: translateX(-50%) scale(1.04) rotate(5deg); }
+    90%  { transform: translateX(-50%) scale(1.02) rotate(-3deg); }
+    100% { transform: translateX(-50%) scale(1)    rotate(0deg); }
 }
-
 
 .dividera {
     margin: 30px 0;
@@ -46,21 +47,36 @@ hr {
     max-height: 45vh;
     border-radius: 1rem;
     padding-bottom: 8vh;
+    object-fit: cover;
 }
 
 .good {
     display: block;
     margin: 0 auto;
     padding-bottom: 4vh;
+    max-width: 100%;
+    height: auto;
 }
 
 .warn {
-    color:rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
 }
 
 .main-section {
     text-align: center;
     padding-bottom: 4vh;
+    padding-left: 2vh;
+    padding-right: 2vh;
+}
+
+.main-section img {
+    max-width: 100%;
+    height: auto;
+}
+
+.info-section {
+    padding-left: 2vh;
+    padding-right: 2vh;
 }
 
 .info-section a, .info-section p {
@@ -69,6 +85,12 @@ hr {
     font-family: monospace;
     font-weight: bold;
     font-size: 1rem;
+    word-break: break-word;
+}
+
+.threads {
+    padding-left: 2vh;
+    padding-right: 2vh;
 }
 
 .collapsible {
@@ -81,7 +103,9 @@ hr {
     cursor: pointer;
     border: none;
     padding-top: 4vh;
-    padding-bottom: 2vh; 
+    padding-bottom: 2vh;
+    width: 100%;
+    text-align: left;
 }
 
 .collapsiblea {
@@ -94,33 +118,139 @@ hr {
     cursor: pointer;
     border: none;
 }
-gloss{
+
+gloss {
     color: rgb(196, 143, 0);
-    font-family:monospace;
+    font-family: monospace;
     font-size: large;
     font-style: italic;
-    font-weight:bolder;
+    font-weight: bolder;
 }
 
-.biggerp{
+.biggerp {
     color: azure;
-    font-family:monospace;
+    font-family: monospace;
     font-size: large;
 }
 
 .content {
     padding-left: 2vh;
+    padding-right: 2vh;
     padding-bottom: 2vh;
     display: none;
     overflow: hidden;
 }
+
 .content p {
     padding-bottom: 1.2vh;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
+
 .content a {
     color: azure;
     font-family: monospace;
     font-size: 1rem;
     padding-bottom: 1.2vh;
+    word-break: break-all;
 }
 
+/* Mobile Part Blehh*/
+@media screen and (max-width: 768px) {
+    .announcement {
+        font-size: 0.75rem;
+        top: 2vh;
+        left: 75%;
+    }
+
+    .banner {
+        max-height: 30vh;
+        padding-bottom: 4vh;
+        border-radius: 0.5rem;
+    }
+
+    .good {
+        width: 150px;
+        padding-bottom: 2vh;
+    }
+
+    .main-section {
+        padding-bottom: 2vh;
+    }
+
+    .main-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .main-section h3 {
+        font-size: 1rem;
+    }
+
+    .main-section p {
+        font-size: 0.9rem;
+    }
+
+    .collapsible {
+        font-size: 1.5rem;
+        padding-top: 2vh;
+        padding-bottom: 1vh;
+    }
+
+    .info-section a, .info-section p {
+        font-size: 0.9rem;
+    }
+
+    .content a {
+        font-size: 0.9rem;
+    }
+
+    gloss {
+        font-size: medium;
+    }
+
+    .biggerp {
+        font-size: medium;
+    }
+
+    .content {
+        padding-left: 1vh;
+        padding-right: 1vh;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .announcement {
+        font-size: 0.65rem;
+        top: 1.5vh;
+        left: 75%;
+    }
+
+    .banner {
+        max-height: 25vh;
+        padding-bottom: 3vh;
+    }
+
+    .good {
+        width: 120px;
+    }
+
+    .main-section h1 {
+        font-size: 1.2rem;
+    }
+
+    .main-section h3 {
+        font-size: 0.9rem;
+    }
+
+    .collapsible {
+        font-size: 1.2rem;
+    }
+
+    .info-section a, .info-section p {
+        font-size: 0.85rem;
+    }
+
+    .content a {
+        font-size: 0.85rem;
+    }
+}
