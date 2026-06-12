@@ -63,6 +63,27 @@
     color: #ffea8a;
 }
 
+.t-container {
+    padding: 2vh 2vw;
+}
+
+.back-btn {
+    display: inline-block;
+    margin: 0 0 2vh 0;
+    padding: 2px 7px;
+    color: azure;
+    font-family: monospace;
+    font-size: 0.72rem;
+    text-decoration: none;
+    border: 1px solid azure;
+    border-radius: 0;
+    background: transparent;
+}
+.back-btn:hover {
+    background: azure;
+    color: #1a1a1a;
+}
+
 .warning {
     border: 1px solid #c44242;
     background-color: #7a2b2b;

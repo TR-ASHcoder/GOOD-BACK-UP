@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "/css/master.css">
+    <title>🇵🇸 Arab Media</title>
+</head>
+<body>
+<div class="t-container">
+<a href="#" class="back-btn" id="back-confetti">← Back</a>
+<canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none;"></canvas>
+<script>
+(function(){
+    var btn = document.getElementById('back-confetti');
+    var canvas = document.getElementById('confetti-canvas');
+    var ctx = canvas.getContext('2d');
+    var pieces = [];
+    var colors = ['#000000','#ffffff','#009736','#ce1126','#EF7C00'];
+    var animFrame;
+
+    function spawnConfetti() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.display = 'block';
+        pieces = [];
+        for (var i = 0; i < 200; i++) {
+            pieces.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height,
+                vx: (Math.random() - 0.5) * 3,
+                vy: Math.random() * 4 + 2,
+                r: Math.random() * 7 + 3,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                tiltAngle: Math.random() * Math.PI * 2,
+                tiltAngleIncrement: Math.random() * 0.1 + 0.03,
+                tilt: 0,
+                alpha: 1
+            });
+        }
+    }
+
+    var STRIPES = [
+        { color: '#009736', delay: 0.00, alpha: 1 },
+        { color: '#ffffff', delay: 0.17, alpha: 1 },
+        { color: '#ce1126', delay: 0.34, alpha: 1 },
+        { color: '#000000', delay: 0.51, alpha: 1 },
+    ];
+    var SLOPE = Math.tan(20 * Math.PI / 180);
+
+    function easeOut3(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function drawStripes(progress) {
+        var w = canvas.width;
+        var h = canvas.height;
+        var bandDur = 0.38;
+
+        STRIPES.forEach(function(s) {
+            var local = (progress - s.delay) / bandDur;
+            if (local <= 0) return;
+            local = Math.min(local, 1);
+            var eased = easeOut3(local);
+            // leading diagonal top-x sweeps 0 → w + h*SLOPE (whole screen covered)
+            var x_top = eased * (w + h * SLOPE);
+
+            ctx.save();
+            ctx.beginPath(); ctx.rect(0, 0, w, h); ctx.clip();
+            ctx.fillStyle = s.color;
+            ctx.globalAlpha = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(x_top, 0);
+            ctx.lineTo(x_top + h * SLOPE, h);
+            ctx.lineTo(0, h);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        });
+    }
+
+    function draw(progress) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawStripes(progress);
+        pieces.forEach(function(p) {
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.beginPath();
+            ctx.lineWidth = p.r / 2;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+            ctx.stroke();
+            ctx.restore();
+        });
+    }
+
+    function update() {
+        pieces.forEach(function(p) {
+            p.tiltAngle += p.tiltAngleIncrement;
+            p.y += p.vy;
+            p.x += p.vx;
+            p.tilt = Math.sin(p.tiltAngle) * 12;
+        });
+    }
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var rect = btn.getBoundingClientRect();
+        var ox = rect.left + rect.width / 2;
+        var oy = rect.top + rect.height / 2;
+        spawnConfetti();
+        var start = null;
+        var duration = 1700;
+        var navAt = (0.51 + 0.38) * duration;
+        function animate(ts) {
+            if (!start) start = ts;
+            var elapsed = ts - start;
+            update();
+            draw(elapsed / duration);
+            if (elapsed >= navAt) {
+                window.location.href = '/';
+            } else {
+                animFrame = requestAnimationFrame(animate);
+            }
+        }
+        requestAnimationFrame(animate);
+    });
+})();
+</script>
+<h2><img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f1f5-1f1f8.svg" style="width:1em;height:1em;vertical-align:middle"> Arab Media</h2>
+<p>Arab media and media translated into Arabic</p>
+<br>
+</p><p id="a1b2c3d4-e5f6-7890-abcd-ef1234567890" class=""><a href="https://egybest.la/">https://egybest.la/</a> - Movies / TV / Anime ( ⚠️ malicious redirects ) 🌟 - use ublock</p><p id="a1b2c3d4-e5f6-7890-abcd-ef1234567891" class="">
+</p><p id="b2c3d4e5-f6a7-8901-bcde-f12345678901" class=""><a href="https://www.fasel-hd.cam/">https://www.fasel-hd.cam</a> - Movies / TV / Anime ( ⚠️ malicious redirects ) 🌟 - use ublock</p><p id="b2c3d4e5-f6a7-8901-bcde-f12345678902" class="">
+</p><p id="c3d4e5f6-a7b8-9012-cdef-123456789012" class=""><a href="https://tv8.egydead.live/">https://tv8.egydead.live</a> - Movies / TV / Anime ( ⚠️ malicious redirects )</p><p id="c3d4e5f6-a7b8-9012-cdef-123456789013" class="">
+</p><p id="d4e5f6a7-b8c9-0123-defa-234567890123" class=""><a href="https://m.asd.ink/">https://m.asd.ink</a> - Movies / TV / Anime ( ⚠️ malicious redirects )</p><p id="d4e5f6a7-b8c9-0123-defa-234567890124" class="">
+</p><p id="e5f6a7b8-c9d0-1234-efab-345678901234" class=""><a href="https://web.topcinemaa.com/">https://web.topcinemaa.com</a> - Movies / TV / Anime ( ⚠️ malicious redirects )</p><p id="e5f6a7b8-c9d0-1234-efab-345678901235" class="">
+</p><p id="f6a7b8c9-d0e1-2345-fabc-456789012345" class=""><a href="https://ta.kirmalk.com/">https://ta.kirmalk.com</a> - Movies / TV / Anime ( ⚠️ malicious redirects )</p><p id="f6a7b8c9-d0e1-2345-fabc-456789012346" class="">
+</p><p id="a7b8c9d0-e1f2-3456-abcd-567890123456" class=""><a href="https://mycima.gives/">https://mycima.gives</a> - Movies / TV ( ⚠️ malicious redirects )</p><p id="a7b8c9d0-e1f2-3456-abcd-567890123457" class="">
+</p><p id="b8c9d0e1-f2a3-4567-bcde-678901234567" class=""><a href="https://larozza.asia/">https://larozza.asia</a> - TV ( ⚠️ malicious redirects )</p><p id="b8c9d0e1-f2a3-4567-bcde-678901234568" class="">
+</p><p id="c9d0e1f2-a3b4-5678-cdef-789012345678" class=""><a href="https://ristoanime.co/">https://ristoanime.co/</a> - Anime ( ⚠️ malicious redirects )</p><p id="c9d0e1f2-a3b4-5678-cdef-789012345679" class="">
+</p><p id="d0e1f2a3-b4c5-6789-defa-890123456789" class=""><a href="https://kawaii-anime.com/">https://kawaii-anime.com</a> - Anime 🌟</p><p id="d0e1f2a3-b4c5-6789-defa-890123456790" class="">
+</p><p id="e1f2a3b4-c5d6-7890-efab-901234567890" class="">
+</p><p id="f2a3b4c5-d6e7-8901-fabc-012345678901" class="">
+</p>
+</div>
+</body>
+</html>
