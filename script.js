@@ -19,7 +19,7 @@ for (i = 0; i < coll.length; i++) {
 }
 
 (function newFact() {
-  var facts = ['Ver . 3.44.', 'Fun fact: the logos name is choby!', 'As-salamu alaykum !','DONT SNITCH','PIRATE EVERYTHING','PLS USE THE SUGGEST FORM','death to Crunchyroll','CATS <3','using Fedora now + new laptop','all my homies use Good Threads','added new sites to....','sometimes..','whats 9+10?'];
+  var facts = ['Ver . 3.45', 'Fun fact: the logos name is choby!', 'As-salamu alaykum !','DONT SNITCH','PIRATE EVERYTHING','PLS USE THE SUGGEST FORM','death to Crunchyroll','CATS <3','using Fedora now + new laptop','all my homies use Good Threads','added new sites to....','sometimes..','whats 9+10?',"rutracker <3"];
   var randomFact = Math.floor(Math.random() * facts.length);
   document.getElementById('announcementrand').innerHTML = facts[randomFact];
 })();
