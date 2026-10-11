@@ -5,9 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel= "stylesheet" type= "text/css" href= "css/master.css">
     <title>❔ FAQ</title>
+<style>
+.back-btn-cube {
+    display: inline-block;
+    margin: 0 0 2vh 0;
+    padding: 2px 7px;
+    color: azure;
+    font-family: monospace;
+    font-size: 0.72rem;
+    text-decoration: none;
+    border: 1px solid azure;
+    background: transparent;
+    box-shadow: 4px 4px 0 #5a8a8e, 8px 8px 0 #2e5a5e;
+    transform: translate(-4px, -4px);
+    transition: box-shadow 0.08s ease, transform 0.08s ease, background 0.08s ease, color 0.08s ease;
+    position: relative;
+}
+.back-btn-cube:hover {
+    background: azure;
+    color: #1a1a1a;
+    box-shadow: 2px 2px 0 #5a8a8e, 4px 4px 0 #2e5a5e;
+    transform: translate(-2px, -2px);
+}
+.back-btn-cube:active {
+    box-shadow: none;
+    transform: translate(0, 0);
+    background: azure;
+    color: #1a1a1a;
+}
+</style>
 </head>
 <body>
-    <a href="/" class="back-btn" style="display:flex;align-items:center;justify-content:center;margin:2vh 2vw;height:100vh;">← Back</a>
+    <a href="/" class="back-btn-cube">← Back</a>
     <h1 align="middle" class="biggerh1">❔</h1>
     <h1 align="middle"> FAQ </h1>
     <br>
