@@ -6,37 +6,107 @@
 <link rel= "stylesheet" type= "text/css" href= "css/master.css">
     <title>❔ FAQ</title>
 <style>
-.back-btn-cube {
-    display: inline-block;
-    margin: 0 0 2vh 0;
-    padding: 2px 7px;
-    color: azure;
+#cube-scene {
+    perspective: 260px;
+    width: 70px;
+    height: 70px;
+    margin: 1.5vh 0 2.5vh 1.5vw;
+    cursor: pointer;
+    user-select: none;
+}
+#cube {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: cube-spin 5s linear infinite;
+    transform: rotateX(-22deg) rotateY(0deg);
+}
+#cube-scene:hover #cube { animation-play-state: paused; }
+@keyframes cube-spin {
+    from { transform: rotateX(-22deg) rotateY(0deg); }
+    to   { transform: rotateX(-22deg) rotateY(360deg); }
+}
+.face {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: rgba(240,255,255,0.06);
+    border: 1px solid azure;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: monospace;
     font-size: 0.72rem;
-    text-decoration: none;
-    border: 1px solid azure;
-    background: transparent;
-    box-shadow: 4px 4px 0 #5a8a8e, 8px 8px 0 #2e5a5e;
-    transform: translate(-4px, -4px);
-    transition: box-shadow 0.08s ease, transform 0.08s ease, background 0.08s ease, color 0.08s ease;
-    position: relative;
+    color: azure;
+    box-sizing: border-box;
 }
-.back-btn-cube:hover {
-    background: azure;
-    color: #1a1a1a;
-    box-shadow: 2px 2px 0 #5a8a8e, 4px 4px 0 #2e5a5e;
-    transform: translate(-2px, -2px);
-}
-.back-btn-cube:active {
-    box-shadow: none;
-    transform: translate(0, 0);
-    background: azure;
-    color: #1a1a1a;
-}
+.f-front  { transform: translateZ(35px); }
+.f-back   { transform: rotateY(180deg)  translateZ(35px); }
+.f-left   { transform: rotateY(-90deg)  translateZ(35px); }
+.f-right  { transform: rotateY(90deg)   translateZ(35px); }
+.f-top    { transform: rotateX(90deg)   translateZ(35px); }
+.f-bottom { transform: rotateX(-90deg)  translateZ(35px); }
 </style>
 </head>
 <body>
-    <a href="/" class="back-btn-cube">← Back</a>
+<div id="cube-scene" title="← Back">
+    <div id="cube">
+        <div class="face f-front">← Back</div>
+        <div class="face f-back"></div>
+        <div class="face f-left"></div>
+        <div class="face f-right"></div>
+        <div class="face f-top"></div>
+        <div class="face f-bottom"></div>
+    </div>
+</div>
+<script>
+(function(){
+    var scene = document.getElementById('cube-scene');
+    var cube  = document.getElementById('cube');
+    var rotX = -22, rotY = 0;
+    var dragging = false, lastX, lastY, moved = false;
+    var animId, startTime, baseY = 0;
+    var speed = 360 / 5000;
+
+    function startAuto() {
+        cube.style.animation = '';
+        var then = performance.now();
+        (function tick(now) {
+            if (dragging) return;
+            rotY = baseY + (now - then) * speed % 360;
+            cube.style.transform = 'rotateX('+rotX+'deg) rotateY('+rotY+'deg)';
+            animId = requestAnimationFrame(tick);
+        })(then);
+    }
+
+    scene.addEventListener('mousedown', function(e) {
+        cancelAnimationFrame(animId);
+        cube.style.animation = 'none';
+        dragging = true; moved = false;
+        lastX = e.clientX; lastY = e.clientY;
+    });
+    window.addEventListener('mousemove', function(e) {
+        if (!dragging) return;
+        moved = true;
+        rotY += (e.clientX - lastX) * 0.7;
+        rotX -= (e.clientY - lastY) * 0.7;
+        lastX = e.clientX; lastY = e.clientY;
+        cube.style.transform = 'rotateX('+rotX+'deg) rotateY('+rotY+'deg)';
+    });
+    window.addEventListener('mouseup', function() {
+        if (!dragging) return;
+        dragging = false;
+        baseY = rotY % 360;
+        startAuto();
+    });
+    scene.addEventListener('click', function() {
+        if (!moved) window.location.href = '/';
+    });
+
+    startAuto();
+})();
+</script>
     <h1 align="middle" class="biggerh1">❔</h1>
     <h1 align="middle"> FAQ </h1>
     <br>
