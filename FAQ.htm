@@ -7,16 +7,16 @@
     <title>❔ FAQ</title>
 <style>
 #cube-scene {
-    perspective: 260px;
-    width: 70px;
-    height: 70px;
-    margin: 1.5vh 0 2.5vh 1.5vw;
+    perspective: 600px;
+    width: 200px;
+    height: 200px;
+    margin: 5vh auto 4vh;
     cursor: pointer;
     user-select: none;
 }
 #cube {
-    width: 70px;
-    height: 70px;
+    width: 200px;
+    height: 200px;
     position: relative;
     transform-style: preserve-3d;
     animation: cube-spin 5s linear infinite;
@@ -29,24 +29,24 @@
 }
 .face {
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 200px;
+    height: 200px;
     background: rgba(240,255,255,0.06);
     border: 1px solid azure;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: monospace;
-    font-size: 0.72rem;
+    font-size: 1.1rem;
     color: azure;
     box-sizing: border-box;
 }
-.f-front  { transform: translateZ(35px); }
-.f-back   { transform: rotateY(180deg)  translateZ(35px); }
-.f-left   { transform: rotateY(-90deg)  translateZ(35px); }
-.f-right  { transform: rotateY(90deg)   translateZ(35px); }
-.f-top    { transform: rotateX(90deg)   translateZ(35px); }
-.f-bottom { transform: rotateX(-90deg)  translateZ(35px); }
+.f-front  { transform: translateZ(100px); }
+.f-back   { transform: rotateY(180deg)  translateZ(100px); }
+.f-left   { transform: rotateY(-90deg)  translateZ(100px); }
+.f-right  { transform: rotateY(90deg)   translateZ(100px); }
+.f-top    { transform: rotateX(90deg)   translateZ(100px); }
+.f-bottom { transform: rotateX(-90deg)  translateZ(100px); }
 </style>
 </head>
 <body>
