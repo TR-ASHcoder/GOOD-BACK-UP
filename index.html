@@ -36,7 +36,20 @@
         <p>⚙️ <a href="https://goodthread.notion.site/Update-log-993a9caadbc04056a6a1d6ff53582774">Update Log</a> / <a href="/updates.htm">Backup Update Log</a></p>
         <p>❔  <a href="FAQ.htm">FAQ</a></p>
         <p>🗣  <a href="https://forms.gle/DJmvXctmLEgTQiXW7">Suggest</a></p>
+        <p style="font-size:0.8em;opacity:0.6;">🔄 Last synced to Good Threads: <span id="sync-date" data-date="2026-10-15"></span></p>
     </div>
+    <script>
+        (function() {
+            const el = document.getElementById('sync-date');
+            const diff = Math.floor((Date.now() - new Date(el.dataset.date)) / 86400000);
+            if (diff === 0) el.textContent = 'today';
+            else if (diff === 1) el.textContent = 'yesterday';
+            else if (diff < 7) el.textContent = diff + ' days ago';
+            else if (diff < 30) { const w = Math.floor(diff / 7); el.textContent = w + ' week' + (w > 1 ? 's' : '') + ' ago'; }
+            else if (diff < 365) { const m = Math.floor(diff / 30); el.textContent = m + ' month' + (m > 1 ? 's' : '') + ' ago'; }
+            else { const y = Math.floor(diff / 365); el.textContent = y + ' year' + (y > 1 ? 's' : '') + ' ago'; }
+        })();
+    </script>
 
     <div class="threads">
         <button type="button" class="collapsible active">Good Piracy Stuff</button>
