@@ -33,12 +33,19 @@
     <h2>⚙️ Backup Update Log</h2>
     <p class="loading" id="status">Loading commits...</p>
     <div id="commits"></div>
+    <button id="load-more" style="display:none;" onclick="loadMore()">Load More</button>
 </div>
 <script>
     const CACHE_KEY = 'goodbackup_commits';
     const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+    const PER_PAGE = 30;
+    let currentPage = 1;
 
-    function render(commits) {
+    function saveCache(commits, page, hasMore) {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), commits, page, hasMore }));
+    }
+
+    function renderCommits(commits) {
         document.getElementById('status').style.display = 'none';
         const container = document.getElementById('commits');
         commits.forEach(item => {
@@ -55,27 +62,58 @@
         });
     }
 
+    function setLoadMore(show) {
+        document.getElementById('load-more').style.display = show ? 'block' : 'none';
+    }
+
+    function fetchPage(page) {
+        setLoadMore(false);
+        document.getElementById('status').style.display = 'block';
+        document.getElementById('status').textContent = 'Loading...';
+        return fetch(`https://api.github.com/repos/TR-ASHcoder/GOOD-BACK-UP/commits?per_page=${PER_PAGE}&page=${page}`)
+            .then(r => r.json())
+            .then(data => Promise.all(data.map(item => fetch(item.url).then(r => r.json()))))
+            .then(commits => {
+                document.getElementById('status').style.display = 'none';
+                return { commits, hasMore: commits.length === PER_PAGE };
+            });
+    }
+
+    function loadMore() {
+        currentPage++;
+        fetchPage(currentPage).then(({ commits, hasMore }) => {
+            const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+            const all = (cached.commits || []).concat(commits);
+            saveCache(all, currentPage, hasMore);
+            renderCommits(commits);
+            setLoadMore(hasMore);
+        }).catch(() => {
+            document.getElementById('status').style.display = 'block';
+            document.getElementById('status').textContent = 'Failed to load more.';
+            setLoadMore(true);
+        });
+    }
+
     const cached = localStorage.getItem(CACHE_KEY);
     if (cached) {
-        const { ts, commits } = JSON.parse(cached);
+        const { ts, commits, page, hasMore } = JSON.parse(cached);
         if (Date.now() - ts < CACHE_TTL) {
-            render(commits);
+            currentPage = page || 1;
+            renderCommits(commits);
+            setLoadMore(hasMore !== false);
         } else {
             localStorage.removeItem(CACHE_KEY);
         }
     }
 
     if (!document.getElementById('commits').children.length) {
-        fetch('https://api.github.com/repos/TR-ASHcoder/GOOD-BACK-UP/commits?per_page=30')
-            .then(r => r.json())
-            .then(data => Promise.all(data.map(item => fetch(item.url).then(r => r.json()))))
-            .then(commits => {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), commits }));
-                render(commits);
-            })
-            .catch(() => {
-                document.getElementById('status').textContent = 'Failed to load commits.';
-            });
+        fetchPage(1).then(({ commits, hasMore }) => {
+            saveCache(commits, 1, hasMore);
+            renderCommits(commits);
+            setLoadMore(hasMore);
+        }).catch(() => {
+            document.getElementById('status').textContent = 'Failed to load commits.';
+        });
     }
 </script>
 </body>
