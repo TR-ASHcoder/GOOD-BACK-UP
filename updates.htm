@@ -35,32 +35,48 @@
     <div id="commits"></div>
 </div>
 <script>
-    fetch('https://api.github.com/repos/TR-ASHcoder/GOOD-BACK-UP/commits?per_page=30')
-        .then(r => r.json())
-        .then(data => {
-            return Promise.all(data.map(item =>
-                fetch(item.url).then(r => r.json())
-            ));
-        })
-        .then(commits => {
-            document.getElementById('status').style.display = 'none';
-            const container = document.getElementById('commits');
-            commits.forEach(item => {
-                const date = new Date(item.commit.author.date).toLocaleDateString('en-GB', {
-                    day: '2-digit', month: 'short', year: 'numeric'
-                });
-                const msg = item.commit.message.split('\n')[0];
-                const add = item.stats ? item.stats.additions : 0;
-                const del = item.stats ? item.stats.deletions : 0;
-                const div = document.createElement('div');
-                div.className = 'commit';
-                div.innerHTML = `<p class="commit-date">${date}</p><p class="commit-msg">${msg}</p><p class="commit-diff"><span class="additions">+${add}</span> <span class="deletions">-${del}</span></p><hr class="dividera">`;
-                container.appendChild(div);
+    const CACHE_KEY = 'goodbackup_commits';
+    const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+    function render(commits) {
+        document.getElementById('status').style.display = 'none';
+        const container = document.getElementById('commits');
+        commits.forEach(item => {
+            const date = new Date(item.commit.author.date).toLocaleDateString('en-GB', {
+                day: '2-digit', month: 'short', year: 'numeric'
             });
-        })
-        .catch(() => {
-            document.getElementById('status').textContent = 'Failed to load commits.';
+            const msg = item.commit.message.split('\n')[0];
+            const add = item.stats ? item.stats.additions : 0;
+            const del = item.stats ? item.stats.deletions : 0;
+            const div = document.createElement('div');
+            div.className = 'commit';
+            div.innerHTML = `<p class="commit-date">${date}</p><p class="commit-msg">${msg}</p><p class="commit-diff"><span class="additions">+${add}</span> <span class="deletions">-${del}</span></p><hr class="dividera">`;
+            container.appendChild(div);
         });
+    }
+
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+        const { ts, commits } = JSON.parse(cached);
+        if (Date.now() - ts < CACHE_TTL) {
+            render(commits);
+        } else {
+            localStorage.removeItem(CACHE_KEY);
+        }
+    }
+
+    if (!document.getElementById('commits').children.length) {
+        fetch('https://api.github.com/repos/TR-ASHcoder/GOOD-BACK-UP/commits?per_page=30')
+            .then(r => r.json())
+            .then(data => Promise.all(data.map(item => fetch(item.url).then(r => r.json()))))
+            .then(commits => {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), commits }));
+                render(commits);
+            })
+            .catch(() => {
+                document.getElementById('status').textContent = 'Failed to load commits.';
+            });
+    }
 </script>
 </body>
 </html>
