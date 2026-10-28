@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/master.css">
+    <title>⚙️ Backup Update Log</title>
+    <style>
+        .commit {
+            margin-bottom: 1.2em;
+        }
+        .commit-date {
+            font-size: 0.8em;
+            opacity: 0.6;
+        }
+        .commit-msg {
+            margin: 0.2em 0 0 0;
+        }
+        .loading {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div class="t-container">
+    <a href="/" class="back-btn">← Back</a>
+    <h2>⚙️ Backup Update Log</h2>
+    <p class="loading" id="status">Loading commits...</p>
+    <div id="commits"></div>
+</div>
+<script>
+    fetch('https://api.github.com/repos/TR-ASHcoder/GOOD-BACK-UP/commits?per_page=30')
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('status').style.display = 'none';
+            const container = document.getElementById('commits');
+            data.forEach(item => {
+                const date = new Date(item.commit.author.date).toLocaleDateString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric'
+                });
+                const msg = item.commit.message.split('\n')[0];
+                const div = document.createElement('div');
+                div.className = 'commit';
+                div.innerHTML = `<p class="commit-date">${date}</p><p class="commit-msg">${msg}</p><hr class="dividera">`;
+                container.appendChild(div);
+            });
+        })
+        .catch(() => {
+            document.getElementById('status').textContent = 'Failed to load commits.';
+        });
+</script>
+</body>
+</html>
